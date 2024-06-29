@@ -67,7 +67,7 @@ def _get_operator_value(input_string: str) -> int:
     return int(input_string[1:])
 
 
-def main(arguments: list[str]) -> str:
+def main(arguments: list) -> str:
     arbitrary_string = arguments[1].strip()
     operator = _get_operator(arguments[2])
     operator_value = _get_operator_value(arguments[2])
