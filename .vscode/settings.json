@@ -1,5 +1,7 @@
 {
     "files.associations": {
         ".cspell.json": "jsonc" 
-    }
+    },
+    "python.languageServer": "Default",
+    "python.analysis.typeCheckingMode": "strict"
 }

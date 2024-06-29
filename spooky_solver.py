@@ -16,7 +16,7 @@ OPERATORS = {
 }
 
 
-def operate(arbitrary_string: str, operator: str, operator_value: int):
+def operate(arbitrary_string: str, operator: str, operator_value: int) -> str:
     # Create a list of integers, splitting on strings made only of non-digits
     numbers = re.split(r"\D+", arbitrary_string)
     numbers = list(filter(None, numbers))
@@ -56,18 +56,18 @@ def operate(arbitrary_string: str, operator: str, operator_value: int):
     return output_str
 
 
-def _get_operator(input_string:str):
+def _get_operator(input_string: str) -> str:
     operator =  str(input_string[0])
     if operator not in "+-*/^":
         raise ValueError(f"Unexpected operator '{operator}', please use one of: +, -, *, /, ^")
     return operator
 
 
-def _get_operator_value(input_string):
+def _get_operator_value(input_string: str) -> int:
     return int(input_string[1:])
 
 
-def main(arguments:list):
+def main(arguments: list[str]) -> str:
     arbitrary_string = arguments[1].strip()
     operator = _get_operator(arguments[2])
     operator_value = _get_operator_value(arguments[2])

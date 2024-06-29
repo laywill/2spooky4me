@@ -30,5 +30,5 @@ import spooky_solver
     ("100spooky4me", "/100", "1spooky0me"),
     ("100spooky4me", "^2", "10000spooky16me"),
 ])
-def test_main(test_string, test_operation_and_value, output):
+def test_main(test_string: str, test_operation_and_value: str, output: str):
     assert spooky_solver.main(['.\\spooky_solver.py', test_string, test_operation_and_value]) == output
