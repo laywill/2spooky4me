@@ -1,5 +1,10 @@
 # 2spooky4me
 
+[![MIT License](https://img.shields.io/badge/License-MIT-green.svg)](https://choosealicense.com/licenses/mit/)
+[![MegaLinter](https://github.com/laywill/2spooky4me/actions/workflows/mega-linter.yml/badge.svg)](https://github.com/laywill/2spooky4me/actions/workflows/mega-linter.yml)
+[![Python PyTest](https://github.com/laywill/2spooky4me/actions/workflows/python-pytest.yml/badge.svg)](https://github.com/laywill/2spooky4me/actions/workflows/python-pytest.yml)
+
+
 Solution to a short programming puzzle: generate variants of the notable meme phrase "2spooky4me".
 
 ## Problem

@@ -3,14 +3,29 @@
 # See all available variables at https://megalinter.io/latest/configuration/ and in linters documentation
 
 APPLY_FIXES: all
+
 DISABLE_LINTERS:
   - JSON_PRETTIER
   - YAML_PRETTIER
   - COPYPASTE_JSCPD
   - REPOSITORY_DEVSKIM
   - REPOSITORY_CHECKOV
+
+# Not worried if Lychee finds dead links
+SPELL_LYCHEE_DISABLE_ERRORS: true
+
+# Some Python Lint tools will fail without requirements installed
+PRE_COMMANDS:
+  - command: pip install -r requirements.txt pytest
+    venv: pylint
+  - command: pip install -r requirements.txt pytest
+    venv: pyright
+
 EMAIL_REPORTER: false
-SPELL_FILTER_REGEX_EXCLUDE: (\.cspell.json|\.gitignore|\.github|.mega-linter.yml)
+SPELL_FILTER_REGEX_EXCLUDE: (\.cspell.json|\.gitignore|\.github|.mega-linter.yml|requirements.txt|coverage.svg)
 
 # Allow JSON Comments.
 JSON_JSONLINT_ARGUMENTS: --comments
+
+# Exclude files from Bandit
+PYTHON_BANDIT_FILTER_REGEX_EXCLUDE: (test_spooky_solver.py|venv|.pytest_cache|__pycache__|tests)
