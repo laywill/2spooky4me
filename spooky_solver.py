@@ -3,61 +3,45 @@
 import sys
 import re
 import copy
-import pytest
-
-def _add(v1:int, v2:int):
-    return v1 + v2
+import operator
 
 
-def _sub(v1:int, v2:int):
-    return v1 - v2
-
-
-def _mul(v1:int, v2:int):
-    return v1 * v2
-
-
-def _div(v1:int, v2:int):
-    if v2 == 0:
-        raise ValueError("Cannot divide by Zero")
-    return int(v1 / v2)
-
-
-def _pow(v1:int, v2:int):
-    return v1 ** v2
+# Alias functions from Operator Library based on valid input operator symbols
+OPERATORS = {
+    "+": operator.add,
+    "-": operator.sub,
+    "*": operator.mul,
+    "/": operator.floordiv,
+    "^": operator.pow,
+}
 
 
 def operate(arbitrary_string: str, operator: str, operator_value: int):
     # Create a list of integers, splitting on strings made only of non-digits
-    numbers = re.split("\D+", arbitrary_string)
+    numbers = re.split(r"\D+", arbitrary_string)
     numbers = list(filter(None, numbers))
     numbers = list(map(int, numbers))
     
     # Create a list of words, splitting on strings made only of digits
-    words = re.split("\d+", arbitrary_string)
+    words = re.split(r"\d+", arbitrary_string)
     words = list(filter(None, words))
 
     # Create a list of numbers that have been operated on
     operated_on_numbers = copy.deepcopy(numbers)
     if len(numbers):
         for idx, num in enumerate(numbers):
-            if operator == "+":
-                operated_on_numbers[idx] = _add(num, operator_value)
-            elif operator == "-":
-                operated_on_numbers[idx] = _sub(num, operator_value)
-            elif operator == "*":
-                operated_on_numbers[idx] = _mul(num, operator_value)
-            elif operator == "/":
-                operated_on_numbers[idx] = _div(num, operator_value)
-            elif operator == "^":
-                operated_on_numbers[idx] = _pow(num, operator_value)
-            else:
-                raise KeyError("Unexpected operator, please use one of: +, -, *, /, ^")
+            if operator not in OPERATORS.keys():
+                raise KeyError(f"Unexpected operator '{operator}', please use one of: +, -, *, /, ^")
+            # Convert the operator string to a function reference
+            operator_func = OPERATORS[operator]
+            # Apply the function to the inputs
+            operated_on_numbers[idx] = operator_func(num, operator_value)
     
     # Prepare an output string to populate
     output_str = ""
     
-    # Zip fails if either list is empty, so pad empty lists with an empty string.
+    # Zip fails if either list is empty.
+    # If only one list contains something, return that.
     if not len(numbers):
         output_str = words[0]
     elif not len(words):
@@ -75,7 +59,7 @@ def operate(arbitrary_string: str, operator: str, operator_value: int):
 def _get_operator(input_string:str):
     operator =  str(input_string[0])
     if operator not in "+-*/^":
-        raise ValueError("Unexpected operator, please use one of: +, -, *, /, ^")
+        raise ValueError(f"Unexpected operator '{operator}', please use one of: +, -, *, /, ^")
     return operator
 
 
@@ -91,6 +75,7 @@ def main(arguments:list):
     output = operate(arbitrary_string, operator, operator_value)
     print(output)
     return output
+
 
 if __name__ == "__main__":
     if len(sys.argv) != 3:
