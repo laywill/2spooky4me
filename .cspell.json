@@ -10,7 +10,7 @@
     "dictionaries": ["en-GB", "bash","python", "softwareTerms", "filetypes", "companies", "misc"],
     // words - list of words to be always considered correct
     "words": [
-        "devcontainers","isort","Cascarino", 
+        "devcontainers","isort","Cascarino"
     ],
     // flagWords - list of words to be always considered incorrect
     // This is useful for offensive words and common spelling errors.
